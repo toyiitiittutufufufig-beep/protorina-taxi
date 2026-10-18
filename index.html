@@ -166,7 +166,7 @@ for(var i2=0;i2<28;i2++){var t=["taxi","car","bus","car","taxi"][i2%5],h=new THR
  TR.push({h:h,t:t,x:ln,z:-70-i2*38-rnd()*30,v:(ln<0?1:-1)*(6+rnd()*8)})}
 var TM=[];
 for(var q=0;q<2;q++){var tg=new THREE.Group();box(3,3.2,14,0x3f9b5a,0,2.2,0,tg);box(3.05,0.8,14.05,0xe8c13a,0,1.1,0,tg);box(3.08,0.9,12,0x27323d,0,2.8,0,tg);S.add(tg);TM.push({h:tg,z:-200-q*600})}
-function load(n,file,len){gl.load("models/"+file+".glb",function(g){MODELS[n]=norm(g.scene,len,FLIP[n]);setCar(PG,"taxi");TR.forEach(function(c){if(c.t===n)setCar(c.h,n)})},undefined,function(){})}
+function load(n,file,len){gl.load(file+".glb",function(g){MODELS[n]=norm(g.scene,len,FLIP[n]);setCar(PG,"taxi");TR.forEach(function(c){if(c.t===n)setCar(c.h,n)})},undefined,function(){})}
 load("taxi","taxi",4.3);load("bus","microbus",5.2);
 
 /* missions */
