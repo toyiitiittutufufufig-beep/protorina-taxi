@@ -94,7 +94,7 @@ canvas{display:block}
 (function(){
 "use strict";
 var $=function(i){return document.getElementById(i)};
-var CREDITS=["LADA Taxi by abbmo (Sketchfab), CC BY 4.0","Lada 2107 by Aslan (Sketchfab), CC BY 4.0","Toyota Hiace Microbus (Sketchfab) - lite copy","Map data © OpenStreetMap contributors (ODbL)"];
+var CREDITS=["LADA Taxi by abbmo (Sketchfab), CC BY 4.0","Lada 2107 by Aslan (Sketchfab), CC BY 4.0 - size-reduced copy","Toyota Hiace Microbus (Sketchfab) - lite copy","Map data © OpenStreetMap contributors (ODbL)"];
 var sd=11;function rnd(){sd=sd*16807%2147483647;return sd/2147483647}
 var HW=[10,7.5,6,4.5],CELL=40;
 function ck(a,b){return (a+2000)*4001+(b+2000)}
@@ -310,7 +310,7 @@ var TR=[],TT=["taxi","lada","taxi","hiace","lada","taxi","car","lada","taxi","hi
 TT.forEach(function(t){var h=new THREE.Group();S.add(h);h.userData.beam=makeBeam();h.add(h.userData.beam);setCar(h,t);TR.push({h:h,t:t,w:null,s:0,d:1,v:6+rnd()*7,x:0,z:0})});
 function refreshType(t){TR.forEach(function(c){if(c.t===t)setCar(c.h,t)})}
 gl.load("taxi.glb?v=2",function(g){MODELS.taxi=normModel(g.scene,4.3,-Math.PI/2,true);setCar(PG,"taxi");playerGlass();setCam();refreshType("taxi")},undefined,function(){});
-gl.load("lada_2107.glb?v=3",function(g){MODELS.lada=normModel(g.scene,4.3,Math.PI/2);refreshType("lada")},undefined,function(){TR.forEach(function(c){if(c.t==="lada")c.t="car"})});
+gl.load("lada_lite.glb?v=4",function(g){MODELS.lada=normModel(g.scene,4.3,Math.PI/2);refreshType("lada")},undefined,function(){TR.forEach(function(c){if(c.t==="lada")c.t="car"})});
 gl.load("microbus_lite.glb?v=3",function(g){MODELS.hiace=normModel(g.scene,5.4,Math.PI);refreshType("hiace")},undefined,function(){TR.forEach(function(c){if(c.t==="hiace")c.t="car"})});
 
 /* ---------- people ---------- */
@@ -454,7 +454,7 @@ function frame(now){requestAnimationFrame(frame);var dt=Math.min((now-last)/1000
 /* ---------- boot ---------- */
 fetch("map.json?v=3",{cache:"no-store"}).then(function(r){return r.json()}).then(function(m){
  makeBase(m);buildWorld(m);startPos();TR.forEach(respawnNPC);ready=true;setCam();
- $("play").disabled=false;$("play").textContent="ابدأ"}).catch(function(e){$("play").textContent="ملف map.json مش موجود";$("start").querySelector("p").textContent="ارفع map.json و taxi.glb و lada_2107.glb و microbus_lite.glb جنب index.html وشغّل اللعبة من رابط. "+(e&&e.message?e.message:"")});
+ $("play").disabled=false;$("play").textContent="ابدأ"}).catch(function(e){$("play").textContent="ملف map.json مش موجود";$("start").querySelector("p").textContent="ارفع map.json و taxi.glb و lada_lite.glb و microbus_lite.glb جنب index.html وشغّل اللعبة من رابط. "+(e&&e.message?e.message:"")});
 requestAnimationFrame(frame);
 })();
 </script>
