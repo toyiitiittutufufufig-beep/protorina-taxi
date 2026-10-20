@@ -452,9 +452,12 @@ function frame(now){requestAnimationFrame(frame);var dt=Math.min((now-last)/1000
  R.render(S,C)}
 
 /* ---------- boot ---------- */
-fetch("map.json?v=3",{cache:"no-store"}).then(function(r){return r.json()}).then(function(m){
+(function(){function plain(){return fetch("map.json?v=4",{cache:"no-store"}).then(function(r){return r.json()})}
+ if(typeof DecompressionStream==="undefined"||typeof Response==="undefined")return plain();
+ return fetch("map.dat?v=4",{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error("map.dat "+r.status);return r.arrayBuffer()}).then(function(buf){
+  return new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"))).json()}).catch(plain)})().then(function(m){
  makeBase(m);buildWorld(m);startPos();TR.forEach(respawnNPC);ready=true;setCam();
- $("play").disabled=false;$("play").textContent="ابدأ"}).catch(function(e){$("play").textContent="ملف map.json مش موجود";$("start").querySelector("p").textContent="ارفع map.json و taxi.glb و lada_lite.glb و microbus_lite.glb جنب index.html وشغّل اللعبة من رابط. "+(e&&e.message?e.message:"")});
+ $("play").disabled=false;$("play").textContent="ابدأ"}).catch(function(e){$("play").textContent="ملف map.json مش موجود";$("start").querySelector("p").textContent="ارفع map.dat و map.json و taxi.glb و lada_lite.glb و microbus_lite.glb جنب index.html وشغّل اللعبة من رابط. "+(e&&e.message?e.message:"")});
 requestAnimationFrame(frame);
 })();
 </script>
